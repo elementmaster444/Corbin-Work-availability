@@ -19,12 +19,6 @@
         font-size: 1rem;
         padding: 8px;
     }
-    button {
-        font-size: 1rem;
-        padding: 8px 15px;
-        margin-left: 10px;
-        cursor: pointer;
-    }
     .result {
         margin-top: 25px;
         font-size: 1.2rem;
@@ -38,8 +32,6 @@
 <p>Select a date to check availability:</p>
 
 <input type="date" id="dateInput">
-<button onclick="checkAvailability()">Check</button>
-
 <div class="result" id="result"></div>
 
 <script>
@@ -55,8 +47,9 @@ const blackouts = [
 ];
 
 function checkAvailability() {
-    const input = document.getElementById("dateInput").value;
+    const dateInput = document.getElementById("dateInput");
     const result = document.getElementById("result");
+    const input = dateInput.value;
 
     if (!input) {
         result.textContent = "Please select a date.";
@@ -66,13 +59,14 @@ function checkAvailability() {
     const date = new Date(input + "T00:00:00");
     const year = date.getFullYear();
     const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
+    const dateStr = date.toISOString().slice(0,10);
 
     if (year !== 2026) {
         result.textContent = "This schedule applies only to 2026.";
         return;
     }
 
-    if (blackouts.includes(input)) {
+    if (blackouts.includes(dateStr)) {
         result.textContent = "❌ Not available (time off requested).";
         return;
     }
@@ -93,17 +87,18 @@ function checkAvailability() {
 
     result.textContent = "✅ Available (May 5 onward: open availability).";
 }
-    // Auto-check today when page loads
+
+// Auto-check today when page loads
 window.onload = function() {
     const dateInput = document.getElementById("dateInput");
-    // Set the input to today's date
     const today = new Date();
     dateInput.valueAsDate = today;
-    // Call your existing checkAvailability function
     checkAvailability();
 };
+
+// Auto-check whenever the date is changed
+document.getElementById("dateInput").addEventListener("change", checkAvailability);
 </script>
 
 </body>
 </html>
-
