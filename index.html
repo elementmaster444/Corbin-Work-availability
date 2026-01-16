@@ -92,21 +92,21 @@ function checkAvailability() {
     }
 
     if (blackouts.includes(dateStr)) {
-        result.textContent = "❌ Not available (time off requested).";
+        result.textContent = "❌ Not available this day (time off requested).";
         return;
     }
 
     if (date <= new Date("2026-03-31")) {
         result.textContent = (weekday === "Sunday" || weekday === "Tuesday")
-            ? "✅ Available (Jan–Mar: works Sundays and Tuesdays)."
-            : "❌ Not available (Jan–Mar: only Sundays and Tuesdays).";
+            ? "✅ Available this day (Jan–Mar: works Sundays and Tuesdays)."
+            : "❌ Not available this day (Jan–Mar: only Sundays and Tuesdays).";
         return;
     }
 
     if (date <= new Date("2026-05-04")) {
         result.textContent = (weekday === "Sunday" || weekday === "Tuesday")
             ? "⚠️ Potentially available (Apr–May 4: one day per week)."
-            : "❌ Not available (Apr–May 4).";
+            : "❌ Not available this day (Apr–May 4).";
         return;
     }
 
@@ -127,6 +127,7 @@ document.getElementById("dateInput").addEventListener("change", checkAvailabilit
 
 </body>
 </html>
+
 
 
 
