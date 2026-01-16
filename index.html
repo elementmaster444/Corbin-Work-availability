@@ -93,7 +93,17 @@ function checkAvailability() {
 
     result.textContent = "✅ Available (May 5 onward: open availability).";
 }
+    // Auto-check today when page loads
+window.onload = function() {
+    const dateInput = document.getElementById("dateInput");
+    // Set the input to today's date
+    const today = new Date();
+    dateInput.valueAsDate = today;
+    // Call your existing checkAvailability function
+    checkAvailability();
+};
 </script>
 
 </body>
 </html>
+
